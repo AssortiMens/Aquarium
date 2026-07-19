@@ -3,34 +3,35 @@ class Visje
 {
   int x,y;
   int w,h;
-  color Kleur;
 
-  int xDir = 0;
-  int yDir = 0;
+  int xDir = 1;
+  int yDir = 1;
   
   int vx = 1;
   int vy = 1;
   
-  Visje(int tx, int ty, int tw, int th, color tKleur)
+  Visje(int tx, int ty, int tw, int th)
    {
      x = tx;
      y = ty;
      w = tw;
      h = th;
-     Kleur = tKleur;
+
      xDir = 1;
      yDir = 1;
      vx = 1;
      vy = 1;
      
-     rectMode(CENTER);
+//     rectMode(CENTER);
    }
 
   void Display()
   {
 //    rectMode(CENTER);
-    fill(Kleur);
-    image(visje, x, y);
+//    animation = new Animation("data/haai.gif",256);
+//    image(visje, x, y);
+    image(gifAnimation1,x,y);
+    image(gifAnimation2,x,y);
 //    rect(x, y, w, h);
   }
   
@@ -39,9 +40,9 @@ class Visje
     x += (xDir * vx);
     y += (yDir * vy);
     
-    if ((x < 0) || (x > (width - visje.width)))
+    if ((x < 0) || (x > (width - w)))
       xDir = -xDir;
-    if ((y < 0) || (y > (height - visje.height)))
+    if ((y < 0) || (y > (height - h)))
       yDir = -yDir;
   }
 
