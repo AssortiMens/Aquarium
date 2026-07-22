@@ -49,6 +49,7 @@ Visje visjes[]={null,null,null,null,null,null,null,null,
 PImage visje;
 Gif gifAnimation1;
 Gif gifAnimation2;
+Gif gifAnimation3;
 
 void setup()
 {
@@ -56,16 +57,21 @@ void setup()
   pixelDensity(1);
  
 //  for(int frame = 0; frame < 256; frame++)
-//    visje = loadImage("data/visje.jpg"); // per frame basis!
+    visje = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
+//    visje.width = width; visje.height = height;
+    visje.resize(width,height);
     gifAnimation1 = new Gif(this,"data/haai.gif");
     gifAnimation1.play();
-    gifAnimation2 = new Gif(this,"data/hallo.gif");
-    gifAnimation2.play();
+//    gifAnimation2 = new Gif(this,"data/hallo.gif");
+//    gifAnimation2.play();
+    gifAnimation3 = new Gif(this,"data/clownfish-swimming.gif");
+    gifAnimation3.play();
 }
 
 void draw()
 {
   background(0);
+  image(visje,0,0); // = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
   for (int i = 0; i < NumVisjes; i++)
    {
      visjes[i].Display();

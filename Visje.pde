@@ -29,9 +29,10 @@ class Visje
   {
 //    rectMode(CENTER);
 //    animation = new Animation("data/haai.gif",256);
-//    image(visje, x, y);
+//    image(visje, 0, 0);
     image(gifAnimation1,x,y);
-    image(gifAnimation2,x,y);
+//    image(gifAnimation2,x,y);
+    image(gifAnimation3,x,y);
 //    rect(x, y, w, h);
   }
   
