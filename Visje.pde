@@ -19,8 +19,8 @@ class Visje
 
      xDir = 1;
      yDir = 1;
-     vx = 1;
-     vy = 1;
+     vx = int(random(10)+1);
+     vy = int(random(5)+1);
      
 //     rectMode(CENTER);
    }
@@ -30,9 +30,11 @@ class Visje
 //    rectMode(CENTER);
 //    animation = new Animation("data/haai.gif",256);
 //    image(visje, 0, 0);
-    image(gifAnimation1,x,y);
-//    image(gifAnimation2,x,y);
-    image(gifAnimation3,x,y);
+//    image(gifAnimation1,x,y);
+    if (xDir > 0)
+      image(gifAnimation2,x,y);
+    else
+      image(gifAnimation3,x,y);
 //    rect(x, y, w, h);
   }
   

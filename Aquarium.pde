@@ -47,7 +47,7 @@ Visje visjes[]={null,null,null,null,null,null,null,null,
                 null,null,null,null,null,null,null,null};
 
 PImage visje;
-Gif gifAnimation1;
+//Gif gifAnimation1;
 Gif gifAnimation2;
 Gif gifAnimation3;
 
@@ -60,12 +60,20 @@ void setup()
     visje = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
 //    visje.width = width; visje.height = height;
     visje.resize(width,height);
-    gifAnimation1 = new Gif(this,"data/haai.gif");
-    gifAnimation1.play();
-//    gifAnimation2 = new Gif(this,"data/hallo.gif");
+//    gifAnimation1 = new Gif(this,"data/haai.gif");
+//    gifAnimation1.play();
+    gifAnimation2 = new Gif(this,"data/clownfish-swimming-rechts.gif"); //hallo.gif");
 //    gifAnimation2.play();
-    gifAnimation3 = new Gif(this,"data/clownfish-swimming.gif");
-    gifAnimation3.play();
+    gifAnimation3 = new Gif(this,"data/clownfish-swimming-links.gif");
+//    gifAnimation3.play();
+    
+    if ((gifAnimation2 == null)||(gifAnimation3 == null))
+      System.exit(0);
+    else
+     {
+       gifAnimation2.play();
+       gifAnimation3.play();
+     }
 }
 
 void draw()
@@ -88,7 +96,7 @@ void Aanmelden()
   if (NumVisjes < MaxNumVisjes)
   {
     // Spawn a visje here!
-    if ((visjes[NumVisjes] = new Visje(0,0,512,383)) != null) // 0,0,512,383 of 0,0,visje.width,visje.height of 0,0,195,95
+    if ((visjes[NumVisjes] = new Visje(0,0,200,102)) != null) // 0,0,512,383 of 0,0,visje.width,visje.height of 0,0,195,95
       NumVisjes++;
   }
 }
