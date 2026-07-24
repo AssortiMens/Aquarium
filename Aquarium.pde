@@ -71,6 +71,8 @@ void setup()
       System.exit(0);
     else
      {
+       gifAnimation2.loop();
+       gifAnimation3.loop();
        gifAnimation2.play();
        gifAnimation3.play();
      }
