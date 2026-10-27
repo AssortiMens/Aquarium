@@ -122,6 +122,12 @@ class Visje
     gifAnimation = ((xDir > 0)?(gifAnimation2):(gifAnimation3));
     image = gifAnimation.copy(); //gifAnimation = gifAnimation.copy();
     image.resize(w,h);
+
+//    image.blend(image,0,0,w,h,0,0,w,h,BLEND);
+//    image.blend(image,0,0,w,h,0,0,w,h,DARKEST);
+//    image.blend(gifAnimation,0,0,gifAnimation.width,gifAnimation.height,0,0,w,h,ADD);
+
+//    image.resize(w,h);
     
     frame++;
     frame %= NumImages;

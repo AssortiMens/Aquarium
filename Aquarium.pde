@@ -46,7 +46,7 @@ Visje visjes[]={null,null,null,null,null,null,null,null,
                 null,null,null,null,null,null,null,null,
                 null,null,null,null,null,null,null,null};
 
-PImage visje;
+PImage achtergrond; //visje;
 PImage plant_1;
 
 Gif gifAnimation1;
@@ -59,9 +59,9 @@ void setup()
   pixelDensity(1);
  
 //  for(int frame = 0; frame < 256; frame++)
-    visje = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
+    achtergrond = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
 //    visje.width = width; visje.height = height;
-    visje.resize(width,height);
+    achtergrond.resize(width,height);
     gifAnimation1 = new Gif(this,"data/waterplant_1.gif");
 //    gifAnimation1 = new Gif(this,"data/haai.gif");
 //    gifAnimation1.play();
@@ -87,7 +87,7 @@ void setup()
 void draw()
 {
   background(0);
-  image(visje,0,0); // = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
+  image(achtergrond,0,0); // = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
   for (int i = 0; i < NumVisjes; i++)
    {
      visjes[i].Display();
@@ -99,6 +99,36 @@ void draw()
    {
      visjes[i].Update();
    }
+   
+   sorteerAlleVisjes();
+}
+
+// Sorteert alle visjes op breedte en daarna op hoogte...
+
+void sorteerAlleVisjes()
+{
+  Visje hulpje = null;
+  
+  for(int i = 0; i < NumVisjes-1; i++)
+  {
+    for(int j = i+1; j < NumVisjes; j++)
+    {
+      if ((visjes[i] != null) && (visjes[j] != null)) {
+        if (visjes[i].w > visjes[j].w) {
+          hulpje = visjes[i];
+          visjes[i] = visjes[j];
+          visjes[j] = hulpje;
+        }
+        if (visjes[i].w == visjes[j].w) {
+          if (visjes[i].h > visjes[j].h) {
+            hulpje = visjes[i];
+            visjes[i] = visjes[j];
+            visjes[j] = hulpje;
+          }
+        }
+      }
+    }
+  }
 }
 
 void Aanmelden()
