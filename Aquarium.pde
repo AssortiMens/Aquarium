@@ -10,6 +10,9 @@ import gifAnimation.*;
 
 /* Globals */
 
+boolean Aanmelden = false;
+boolean Afmelden = false;
+
 int NumVisjes = 0;
 int MaxNumVisjes = 256;
 
@@ -82,12 +85,18 @@ void setup()
        gifAnimation2.play();
        gifAnimation3.play();
      }
+    
+    Aanmelden = false;
+    Afmelden = false;
 }
 
 void draw()
 {
+
   background(0);
+  
   image(achtergrond,0,0); // = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
+  
   for (int i = 0; i < NumVisjes; i++)
    {
      visjes[i].Display();
@@ -100,7 +109,21 @@ void draw()
      visjes[i].Update();
    }
    
+//   sorteerAlleVisjes();
+
+   if ((Aanmelden == true) && (Afmelden == false)) {
+     Aanmelden();
+     Aanmelden = Afmelden = false;
+   }
+   else {
+     if ((Aanmelden == false) && (Afmelden == true)) {
+       Afmelden();
+       Afmelden = Aanmelden = false;
+     }
+   }
+   
    sorteerAlleVisjes();
+
 }
 
 // Sorteert alle visjes op breedte en daarna op hoogte...
@@ -133,29 +156,75 @@ void sorteerAlleVisjes()
 
 void Aanmelden()
 {
-  if (NumVisjes < MaxNumVisjes)
-  {
-    // Spawn a visje here!
-    if ((visjes[NumVisjes] = new Visje(0,0,int(random(200)+55),int(random(100)+51),color(random(256),random(256),random(256),(255)))) != null) // 0,0,512,383 of 0,0,visje.width,visje.height of 0,0,195,95
-      NumVisjes++;
+  if ((Aanmelden == true) && (Afmelden == false)) {
+//    Aanmelden = false;
+    if (NumVisjes < MaxNumVisjes)
+    {
+      // Spawn a visje here!
+      if ((visjes[NumVisjes] = new Visje(0,0,int(random(200)+55),int(random(100)+51),color(random(256),random(256),random(256),(255)))) != null) { // 0,0,512,383 of 0,0,visje.width,visje.height of 0,0,195,95
+        NumVisjes++;
+//        Aanmelden = false;
+      }
+    }
   }
+  Aanmelden = Afmelden = false;
 }
 
 void Afmelden()
 {
-  if (NumVisjes > 0)
-  {
-    // Unspawn a visje
-    NumVisjes--;
-    visjes[NumVisjes] = null;
+  if ((Afmelden == true) && (Aanmelden == false)) {
+//    Afmelden = false;
+    if (NumVisjes > 0)
+    {
+      // Unspawn a visje
+      NumVisjes--;
+      visjes[NumVisjes] = null;
+//      Afmelden = false;
+    }
   }
+  Afmelden = Aanmelden = false;
 }
 
 void keyPressed()
 {
-  if (key == 'a')
-    Aanmelden();
-  else
-   if (key == 'c')
-     Afmelden();
+  char Key = '\0';
+  
+  Key = key;
+  
+  Key &= 0x5f; // toUpper();
+  
+  Aanmelden = Afmelden = false; // force flush all keys...
+  
+  if (Key == 'A') {
+    Aanmelden = true;
+    Afmelden = false;
+  }
+  else {
+    if (Key == 'C') {
+      Afmelden = true;
+      Aanmelden = false;
+    }
+  }
+}
+
+void keyReleased()
+{
+  char Key = '\0';
+  
+  Key = key;
+
+  Key &= 0x5f; // toUpper();
+  
+  Aanmelden = Afmelden = false; // Force flush all keys...
+  
+  if (Key == 'A') {
+    Aanmelden = false;
+    Afmelden = false;
+  }
+  else {
+    if (Key == 'C') {
+      Afmelden = false;
+      Aanmelden = false;
+    }
+  }
 }
