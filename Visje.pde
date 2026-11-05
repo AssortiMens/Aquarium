@@ -12,14 +12,20 @@ class Visje
   
   color kleur; // = color(255,255,255,255);
 
-  Gif gifAnimation = null;
-  int NumImages = 16;
-  PImage image = null; // [NumImages];
+  //Gif gifAnimation2a = null; //gifAnimation2;
+  //Gif gifAnimation3a = null; //gifAnimation3;
+  
+  int NumImages = 8;
+
+  PImage gifAnimation = null;
+  PImage[] gifAnimation2a = new PImage[NumImages]; //{null,null,null,null,null,null,null,null}; // [NumImages];
+  PImage[] gifAnimation3a = new PImage[NumImages]; //{null,null,null,null,null,null,null,null};
                  /*{null,null,null,null,null,null,null,null,null,null,null,null,
                     null,null,null,null,null,null,null,null,null,null,null,null,
                     null,null,null,null,null,null,null,null}; */
 //  PImage image2 = null; //new PImage[NumImages];
-  
+
+// PImage[] allFrames = Gif.getPImages(this, "lavalamp.gif"); 
   int frame = 0;
   
   Visje(int tx, int ty, int tw, int th, color tkleur)
@@ -33,24 +39,39 @@ class Visje
      
      xDir = 1;
      yDir = 1;
-     vx = int(random(10)+1);
-     vy = int(random(5)+1);
+     vx = int(random(8)+1);
+     vy = int(random(4)+1);
      
 //     rectMode(CENTER);
      kleur = tkleur;
      fill(kleur);
-     
-     gifAnimation2.loop();
-     gifAnimation3.loop();
-     gifAnimation2.play();
-     gifAnimation3.play();
 
-     gifAnimation = ((xDir > 0)?(gifAnimation2):(gifAnimation3));
+//     gifAnimation2.loop();
+//     gifAnimation3.loop();
+//     gifAnimation2.play();
+//     gifAnimation3.play();
+     
+     for (int frame = 0; frame < NumImages; frame++) {
+       gifAnimation2a[frame] = gifAnimation2[frame].copy(); // copy a frame?!
+       gifAnimation3a[frame] = gifAnimation3[frame].copy(); // copy a frame?!
+
+       gifAnimation2a[frame].resize(w,h);
+       gifAnimation3a[frame].resize(w,h);
+     }
+
+     frame = 0;
+
+//     gifAnimation2a.loop(); //[frame].loop();
+//     gifAnimation3a.loop(); //[frame].loop();
+//     gifAnimation2a.play(); //[frame].play();
+//     gifAnimation3a.play(); //[frame].play();
+
+     gifAnimation = ((xDir > 0)?(gifAnimation2a[frame]):(gifAnimation3a[frame]));
 //     gifAnimation2.resize(w,h);
 //     gifAnimation3.resize(w,h);
 //    for (int frame = 0; frame < NumImages; frame++) {
-      image = gifAnimation.copy(); //gifAnimation = gifAnimation.copy();
-      image.resize(w,h);
+//      image = gifAnimation.copy(); //gifAnimation = gifAnimation.copy();
+//      image.resize(w,h);
 //      gifAnimation2.frameCount++;
 //      gifAnimation2.play();
 //      gifAnimation2++;
@@ -63,7 +84,7 @@ class Visje
 //      image2[frame].play();
 //    }
 
-    frame=0;
+//    frame=0;
   }
 
   void Display()
@@ -81,7 +102,7 @@ class Visje
 
     noStroke();
     
-    gifAnimation = ((xDir > 0)?(gifAnimation2):(gifAnimation3));
+    gifAnimation = ((xDir > 0)?(gifAnimation2a[frame]):(gifAnimation3a[frame]));
 //    gifAnimation = gifAnimation2;
 //      fill(kleur);
 //      image(gifAnimation,x,y);
@@ -100,7 +121,9 @@ class Visje
 
 //    rect(0,0,w,h); // cause delay...
 //    if (xDir > 0)
-    image(image,x,y);
+
+//    gifAnimation.jump();
+    image(gifAnimation,x,y);
 //    else
 //      image(image2,x,y);
 
@@ -114,23 +137,27 @@ class Visje
     x += (xDir * vx);
     y += (yDir * vy);
     
-    if ((x < 0) || (x > (width - w)))
+    if ((x < 0) || (x > (width - w))) // Upper left corner
       xDir = -xDir;
-    if ((y < 0) || (y > (height - h)))
+    if ((y < 0) || (y > (height - h))) // Upper left corner
       yDir = -yDir;
 
-    gifAnimation = ((xDir > 0)?(gifAnimation2):(gifAnimation3));
-    image = gifAnimation.copy(); //gifAnimation = gifAnimation.copy();
-    image.resize(w,h);
+    gifAnimation = ((xDir > 0)?(gifAnimation2a[frame]):(gifAnimation3a[frame]));
+//    image = gifAnimation.copy(); //gifAnimation = gifAnimation.copy();
+//    image.resize(w,h);
 
 //    image.blend(image,0,0,w,h,0,0,w,h,BLEND);
 //    image.blend(image,0,0,w,h,0,0,w,h,DARKEST);
 //    image.blend(gifAnimation,0,0,gifAnimation.width,gifAnimation.height,0,0,w,h,ADD);
 
 //    image.resize(w,h);
+//    gifAnimation.jump(frame);
     
-    frame++;
-    frame %= NumImages;
+    if ((frameCount % 8) == 0) {
+      frame++;
+      frame %= NumImages;
+    }
+    
   }
 
 }

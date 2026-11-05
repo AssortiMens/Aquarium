@@ -53,8 +53,9 @@ PImage achtergrond; //visje;
 PImage plant_1;
 
 Gif gifAnimation1;
-Gif gifAnimation2;
-Gif gifAnimation3;
+PImage[] gifAnimation2; // holds all frames of clownfish swimming to the right
+PImage[] gifAnimation3; // holds all frames of clownfish swimming to the left
+// PImage[] allFrames = Gif.getPImages(this, "lavalamp.gif"); // only used for syntax
 
 void setup()
 {
@@ -68,9 +69,9 @@ void setup()
     gifAnimation1 = new Gif(this,"data/waterplant_1.gif");
 //    gifAnimation1 = new Gif(this,"data/haai.gif");
 //    gifAnimation1.play();
-    gifAnimation2 = new Gif(this,"data/clownfish-swimming-rechts.gif"); //hallo.gif");
+    gifAnimation2 = Gif.getPImages(this,"data/clownfish-swimming-rechts.gif"); //hallo.gif");
 //    gifAnimation2.play();
-    gifAnimation3 = new Gif(this,"data/clownfish-swimming-links.gif");
+    gifAnimation3 = Gif.getPImages(this,"data/clownfish-swimming-links.gif");
 //    gifAnimation3.play();
     
     if ((gifAnimation1 == null)||(gifAnimation2 == null)||(gifAnimation3 == null))
@@ -78,16 +79,18 @@ void setup()
     else
      {
        gifAnimation1.loop();
-       gifAnimation2.loop();
-       gifAnimation3.loop();
+//       gifAnimation2.loop();
+//       gifAnimation3.loop();
        
        gifAnimation1.play();
-       gifAnimation2.play();
-       gifAnimation3.play();
+//       gifAnimation2.play();
+//       gifAnimation3.play();
      }
     
     Aanmelden = false;
     Afmelden = false;
+    
+    frameRate(100);
 }
 
 void draw()
