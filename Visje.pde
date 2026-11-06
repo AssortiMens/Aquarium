@@ -15,7 +15,7 @@ class Visje
   //Gif gifAnimation2a = null; //gifAnimation2;
   //Gif gifAnimation3a = null; //gifAnimation3;
   
-  int NumImages = 8;
+  int NumImages = 8; // = NumFrames...
 
   PImage gifAnimation = null;
   PImage[] gifAnimation2a = new PImage[NumImages]; //{null,null,null,null,null,null,null,null}; // [NumImages];
@@ -25,7 +25,8 @@ class Visje
                     null,null,null,null,null,null,null,null}; */
 //  PImage image2 = null; //new PImage[NumImages];
 
-// PImage[] allFrames = Gif.getPImages(this, "lavalamp.gif"); 
+// PImage[] allFrames = Gif.getPImages(this, "lavalamp.gif"); // only used for syntax
+
   int frame = 0;
   
   Visje(int tx, int ty, int tw, int th, color tkleur)
@@ -51,12 +52,12 @@ class Visje
 //     gifAnimation2.play();
 //     gifAnimation3.play();
      
-     for (int frame = 0; frame < NumImages; frame++) {
-       gifAnimation2a[frame] = gifAnimation2[frame].copy(); // copy a frame?!
-       gifAnimation3a[frame] = gifAnimation3[frame].copy(); // copy a frame?!
+     for (int frameX = 0; frameX < NumImages; frameX++) {
+       gifAnimation2a[frameX] = gifAnimation2[frameX].copy(); // copy a frame?!
+       gifAnimation3a[frameX] = gifAnimation3[frameX].copy(); // copy a frame?!
 
-       gifAnimation2a[frame].resize(w,h);
-       gifAnimation3a[frame].resize(w,h);
+       gifAnimation2a[frameX].resize(w,h); // resize a frame
+       gifAnimation3a[frameX].resize(w,h); // resize a frame
      }
 
      frame = 0;
@@ -67,6 +68,7 @@ class Visje
 //     gifAnimation3a.play(); //[frame].play();
 
      gifAnimation = ((xDir > 0)?(gifAnimation2a[frame]):(gifAnimation3a[frame]));
+
 //     gifAnimation2.resize(w,h);
 //     gifAnimation3.resize(w,h);
 //    for (int frame = 0; frame < NumImages; frame++) {
@@ -96,6 +98,7 @@ class Visje
 //    fill(color(255,255,255),255);
     
     fill(kleur);
+
 //    stroke(kleur);
 //    strokeWeight(1);
 //    strokeJoin(BEVEL);
@@ -103,6 +106,7 @@ class Visje
     noStroke();
     
     gifAnimation = ((xDir > 0)?(gifAnimation2a[frame]):(gifAnimation3a[frame]));
+
 //    gifAnimation = gifAnimation2;
 //      fill(kleur);
 //      image(gifAnimation,x,y);
@@ -123,8 +127,10 @@ class Visje
 //    if (xDir > 0)
 
 //    gifAnimation.jump();
-    image(gifAnimation,x,y);
-//    else
+
+    image(gifAnimation,x,y); // draw a frame of the gif animation...
+
+//  else
 //      image(image2,x,y);
 
 //    ellipse(x,y,40,40);
@@ -137,12 +143,13 @@ class Visje
     x += (xDir * vx);
     y += (yDir * vy);
     
-    if ((x < 0) || (x > (width - w))) // Upper left corner
+    if ((x < 0) || (x > (width - w))) // Upper left corner and Down right corner
       xDir = -xDir;
-    if ((y < 0) || (y > (height - h))) // Upper left corner
+    if ((y < 0) || (y > (height - h))) // Upper left corner and Down right corner
       yDir = -yDir;
 
     gifAnimation = ((xDir > 0)?(gifAnimation2a[frame]):(gifAnimation3a[frame]));
+
 //    image = gifAnimation.copy(); //gifAnimation = gifAnimation.copy();
 //    image.resize(w,h);
 
@@ -153,7 +160,7 @@ class Visje
 //    image.resize(w,h);
 //    gifAnimation.jump(frame);
     
-    if ((frameCount % 8) == 0) {
+    if ((frameCount % 8) == 0) { // gif animation speed = every 8th frame of 100 Hz as frameRate(100) is used inside setup()...
       frame++;
       frame %= NumImages;
     }
