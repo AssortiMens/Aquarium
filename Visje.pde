@@ -16,6 +16,7 @@ class Visje
   //Gif gifAnimation3a = null; //gifAnimation3;
   
   int NumImages = 8; // = NumFrames...
+  int vxReeks[] = {1,2,3,5,6,7,9,10,11};
 
   PImage gifAnimation = null;
   PImage[] gifAnimation2a = new PImage[NumImages]; //{null,null,null,null,null,null,null,null}; // [NumImages];
@@ -40,9 +41,12 @@ class Visje
      
      xDir = 1;
      yDir = 1;
-     vx = int(random(8)+1);
-     vy = int(random(4)+1);
-     
+     vx = vxReeks[int(random(9))]; //int(random(7))+1;
+     vy = int(random(3))+1;
+
+//     if (vx == 4)
+//       vx += int(random(3))+1;
+
 //     rectMode(CENTER);
      kleur = tkleur;
      fill(kleur);
@@ -126,7 +130,7 @@ class Visje
 //    rect(0,0,w,h); // cause delay...
 //    if (xDir > 0)
 
-//    gifAnimation.jump();
+//    gifAnimation.frames[frame];
 
     image(gifAnimation,x,y); // draw a frame of the gif animation...
 
@@ -135,7 +139,19 @@ class Visje
 
 //    ellipse(x,y,40,40);
 //    rect(x, y, w, h);
-  
+
+    rectMode(CENTER);
+//    textMode(CENTER);
+    textAlign(CENTER,CENTER);
+    fill(0,0,0,255);
+    rect(x,y,15,15); //ellipse(x,y,15,15);
+    fill(255,255,255,255);
+    text(vx,x,y);
+    
+    fill(255,255,255,255);
+    rect(x+w/2,y+h/2,15,15); //ellipse(x+w/2,y+h/2,15,15);
+    fill(0,0,0,255);
+    text(frame,x+w/2,y+h/2);
   }
   
   void Update()
@@ -160,8 +176,9 @@ class Visje
 //    image.resize(w,h);
 //    gifAnimation.jump(frame);
     
-    if ((frameCount % 8) == 0) { // gif animation speed = every 8th frame of 100 Hz as frameRate(100) is used inside setup()...
-      frame++;
+    if ((frameCount % 8) == 0) {
+      // gif animation speed = every 8th frame of 100 Hz as frameRate(100) is used inside setup()...
+      frame += vx; // frame++;
       frame %= NumImages;
     }
     

@@ -49,7 +49,7 @@ Visje visjes[]={null,null,null,null,null,null,null,null,
                 null,null,null,null,null,null,null,null,
                 null,null,null,null,null,null,null,null};
 
-PImage achtergrond; //visje;
+PImage[] achtergrond = new PImage[8]; //visje;
 PImage plant_1;
 
 Gif gifAnimation1;
@@ -62,10 +62,11 @@ void setup()
   fullScreen();
   pixelDensity(1);
  
-//  for(int frame = 0; frame < 256; frame++)
-    achtergrond = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
+  for(int frame = 0; frame < 8; frame++) {
+    achtergrond[frame] = loadImage("data/achtergrond-frame-0"+(frame+1)+".jpg"); // per frame basis!
 //    visje.width = width; visje.height = height;
-    achtergrond.resize(width,height);
+    achtergrond[frame].resize(width,height);
+  }
     gifAnimation1 = new Gif(this,"data/waterplant_1.gif");
 //    gifAnimation1 = new Gif(this,"data/haai.gif");
 //    gifAnimation1.play();
@@ -98,7 +99,7 @@ void draw()
 
   background(0);
   
-  image(achtergrond,0,0); // = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
+  image(achtergrond[((frameCount % 32)>>2) & 7],0,0); // = loadImage("data/Aquarium-Achtergrond.jpg"); // per frame basis!
   
   for (int i = 0; i < NumVisjes; i++)
    {
